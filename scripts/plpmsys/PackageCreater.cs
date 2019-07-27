@@ -1,19 +1,30 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
-using System.Collections.Generic;
 
 namespace PrivateLocatedPackageManager
 {
+    /// <summary>
+    /// 
+    /// Support you to generate a plpmpkg file.
+    /// 
+    /// </summary>
     public class PackageCreater
     {
-        public void Build(Package pkg)
+        /// <summary>
+        /// 
+        /// Generate a plpmpkg file from PackagesProps.
+        /// 
+        /// </summary>
+        /// <param name="pkg">the properties of the package</param>
+        public void Build(PackageProps pkg)
         {
             //
-            // Generate a temp folder name by GUID.
+            // Generate a temp folder by GUID.
             //
             var tempFolderName = Guid.NewGuid().ToString();
             var tempFolderPath = Path.Combine(Path.GetTempPath(), tempFolderName);
+            Directory.CreateDirectory(tempFolderPath);
 
             //
             // Copy all files which are going to be compressed.
