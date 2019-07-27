@@ -1,16 +1,26 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
-using System.Collections.Generic;
 
 namespace PrivateLocatedPackageManager
 {
+    /// <summary>
+    /// 
+    /// Support you to generate a plpmpkg file.
+    /// 
+    /// </summary>
     public class PackageCreater
     {
-        public void Build(Package pkg)
+        /// <summary>
+        /// 
+        /// Generate a plpmpkg file from PackagesProps.
+        /// 
+        /// </summary>
+        /// <param name="pkg">the properties of the package</param>
+        public void Build(PackageProps pkg)
         {
             //
-            // Generate a temp folder name by GUID.
+            // Generate a temp folder by GUID.
             //
             var tempFolderName = Guid.NewGuid().ToString();
             var tempFolderPath = Path.Combine(Path.GetTempPath(), tempFolderName);
@@ -22,7 +32,7 @@ namespace PrivateLocatedPackageManager
             {
                 if(!File.Exists(file.SourceFilePath))
                 {
-                    throw new FileNotFoundException($"[PLPM] The file which is located at {file} is not found.");
+                    throw new FileNotFoundException($"[ERROR] The file which is located at {file} is not found.");
                 }
                 else
                 {
@@ -30,6 +40,11 @@ namespace PrivateLocatedPackageManager
                     // Get a temp file path.
                     //
                     var tempFilePath = Path.Combine(tempFolderPath, file.ManagedFilePath);
+                    var tempFilesFolderPath = Path.GetDirectoryName(tempFilePath);
+                    if(!Directory.Exists(tempFilesFolderPath))
+                    {
+                        Directory.CreateDirectory(tempFilesFolderPath);
+                    }
                     File.Copy(file.SourceFilePath, tempFilePath, overwrite: true);
                 }
             }

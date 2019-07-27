@@ -1,0 +1,26 @@
+<#@ output extension=".g.cs" #>
+<#
+    string[] classNames = new []{
+        "help"
+    };
+#>
+
+using System;
+
+namespace PrivateLocatedPackageManager.CUI
+{
+    partial class CommandFinder
+    {
+        public void Initialize()
+        {
+<#
+    foreach(var className in classNames)
+    {
+#>
+            commands.Add(new <#= (Char.ToUpper(className[0]) + className.Substring(1))#>Command());
+<#
+    }
+#>
+        }
+    }
+}
