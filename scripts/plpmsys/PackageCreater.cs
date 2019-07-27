@@ -24,7 +24,6 @@ namespace PrivateLocatedPackageManager
             //
             var tempFolderName = Guid.NewGuid().ToString();
             var tempFolderPath = Path.Combine(Path.GetTempPath(), tempFolderName);
-            Directory.CreateDirectory(tempFolderPath);
 
             //
             // Copy all files which are going to be compressed.
@@ -41,6 +40,11 @@ namespace PrivateLocatedPackageManager
                     // Get a temp file path.
                     //
                     var tempFilePath = Path.Combine(tempFolderPath, file.ManagedFilePath);
+                    var tempFilesFolderPath = Path.GetDirectoryName(tempFilePath);
+                    if(!Directory.Exists(tempFilesFolderPath))
+                    {
+                        Directory.CreateDirectory(tempFilesFolderPath);
+                    }
                     File.Copy(file.SourceFilePath, tempFilePath, overwrite: true);
                 }
             }
