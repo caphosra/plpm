@@ -30,7 +30,7 @@ namespace PrivateLocatedPackageManager
         {
             if(!File.Exists(sourceFilePath))
             {
-                Console.Error.WriteLine($"[PLPM] Warnings: The file which is at {sourceFilePath} is not found but referenced");
+                Console.Error.WriteLine($"[WARNINGS] The file which is at {sourceFilePath} is not found but referenced");
             }
 
             SourceFilePath = sourceFilePath;

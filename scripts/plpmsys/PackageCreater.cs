@@ -32,7 +32,7 @@ namespace PrivateLocatedPackageManager
             {
                 if(!File.Exists(file.SourceFilePath))
                 {
-                    throw new FileNotFoundException($"[PLPM] The file which is located at {file} is not found.");
+                    throw new FileNotFoundException($"[ERROR] The file which is located at {file} is not found.");
                 }
                 else
                 {
