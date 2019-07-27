@@ -4,3 +4,9 @@
 
 **/bin/
 **/obj/
+
+#
+# Generated scripts
+#
+
+**/*.g.cs
