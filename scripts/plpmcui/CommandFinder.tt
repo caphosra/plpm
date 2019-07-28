@@ -1,7 +1,8 @@
 <#@ output extension=".g.cs" #>
 <#
     string[] classNames = new []{
-        "help"
+        "help",
+        "create"
     };
 #>
 

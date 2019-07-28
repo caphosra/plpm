@@ -17,7 +17,8 @@ namespace PrivateLocatedPackageManager
         /// 
         /// </summary>
         /// <param name="pkg">the properties of the package</param>
-        public void Build(PackageProps pkg)
+        /// <returns>a path to the package generated</returns>
+        public string Build(PackageProps pkg)
         {
             //
             // Generate a temp folder by GUID.
@@ -50,10 +51,25 @@ namespace PrivateLocatedPackageManager
             }
 
             //
+            // Prepare a folder for making a package.
+            //
+            var outputFileName = $"{pkg.Name}.plpmpkg";
+            var appDataFolderPath =  Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), 
+                "PrivateLocatedPackageManager"
+            );
+            if(!Directory.Exists(appDataFolderPath))
+            {
+                Directory.CreateDirectory(appDataFolderPath);
+            }
+
+            //
             // Compress them.
             //
-            var outputFilePath = $"{pkg.Name}.plpmpkg";
+            var outputFilePath = Path.Combine(appDataFolderPath, outputFileName);
             ZipFile.CreateFromDirectory(tempFolderPath, outputFilePath);
+
+            return outputFilePath;
         }
     }
 }
