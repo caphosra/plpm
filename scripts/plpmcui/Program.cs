@@ -31,7 +31,14 @@ namespace PrivateLocatedPackageManager.CUI
             }
 
             var command = finder.Search(args[0]);
-            command.Execute(args.Skip(1).ToArray());
+            if(command == null)
+            {
+                Console.Error.WriteLine($"[ERROR] A command, \"{args[0]}\" is not found.");
+            }
+            else
+            {
+                command.Execute(args.Skip(1).ToArray());
+            }
         }
     }
 }

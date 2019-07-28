@@ -52,7 +52,9 @@ namespace PrivateLocatedPackageManager
             //
             // Compress them.
             //
-            var outputFilePath = $"{pkg.Name}.plpmpkg";
+            var outputFileName = $"{pkg.Name}.plpmpkg";
+            var appDataFolderPath =  Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var outputFilePath = Path.Combine(appDataFolderPath, "PrivateLocatedPackageManager", outputFileName);
             ZipFile.CreateFromDirectory(tempFolderPath, outputFilePath);
         }
     }
