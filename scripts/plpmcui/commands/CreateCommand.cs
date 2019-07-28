@@ -40,13 +40,24 @@ namespace PrivateLocatedPackageManager.CUI
                     var relativeUri = currentDir.MakeRelativeUri(new Uri(file, UriKind.Absolute));
                     var relativePath = Uri.UnescapeDataString(relativeUri.ToString());
 
-                    Console.WriteLine($"[INFO] Add a file (\"{file}\"). It will be internally called as \"{relativePath}\"");
+                    Console.WriteLine($"[INFO] Add a file (\"{file}\"). It will be internally called as \"{relativePath}\".");
 
                     props.Files.Add(new PackageItem(file, relativePath));
                 }
 
                 var creater = new PackageCreater();
-                creater.Build(props);
+                string outputFilePath;
+                try
+                {
+                    outputFilePath = creater.Build(props);
+                }
+                catch(FileNotFoundException e)
+                {
+                    Console.Error.WriteLine(e.Message);
+                    return;
+                }
+                Console.WriteLine($"[INFO] Generated a package (\"{outputFilePath}\").");
+                Console.WriteLine($"[INFO] Finished successfully.");
             }
         }
     }
