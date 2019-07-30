@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PrivateLocatedPackageManager
 {
@@ -13,12 +15,13 @@ namespace PrivateLocatedPackageManager
     {
         /// <summary>
         /// 
-        /// Generate a plpmpkg file from PackagesProps.
+        /// Build a package from the file and Emit an info of it.
         /// 
         /// </summary>
-        /// <param name="pkg">the properties of the package</param>
-        /// <returns>a path to the package generated</returns>
-        public string Build(PackageProps pkg)
+        /// <param name="workingDir">The absolute path of the working dir</param>
+        /// <param name="files">The relative pathes from "workingDir" of the contents</param>
+        /// <returns></returns>
+        public PackageInfo Build(string packageName, Uri workingDir, List<Uri> files)
         {
             //
             // Generate a temp folder by GUID.
@@ -29,34 +32,36 @@ namespace PrivateLocatedPackageManager
             //
             // Copy all files which are going to be compressed.
             //
-            foreach(var file in pkg.Files)
+            foreach(var file in files)
             {
-                if(!File.Exists(file.SourceFilePath))
+                var filesAbsoluteUri = new Uri(workingDir, file);
+                if(!File.Exists(filesAbsoluteUri.AbsoluteUri))
                 {
-                    throw new FileNotFoundException($"[ERROR] The file which is located at {file} is not found.");
+                    LogTracer.LogError($"[ERROR] The file which is located at {filesAbsoluteUri.AbsoluteUri} is not found.");
+                    return null;
                 }
                 else
                 {
                     //
                     // Get a temp file path.
                     //
-                    var tempFilePath = Path.Combine(tempFolderPath, file.ManagedFilePath);
+                    var tempFilePath = Path.Combine(tempFolderPath, file.OriginalString);
                     var tempFilesFolderPath = Path.GetDirectoryName(tempFilePath);
                     if(!Directory.Exists(tempFilesFolderPath))
                     {
                         Directory.CreateDirectory(tempFilesFolderPath);
                     }
-                    File.Copy(file.SourceFilePath, tempFilePath, overwrite: true);
+                    File.Copy(filesAbsoluteUri.AbsoluteUri, tempFilePath, overwrite: true);
                 }
             }
 
             //
             // Prepare a folder for making a package.
             //
-            var outputFileName = $"{pkg.Name}.plpmpkg";
+            var outputFileName = $"{packageName}.plpmpkg";
             var appDataFolderPath =  Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), 
-                "PrivateLocatedPackageManager"
+                "PLPM"
             );
             if(!Directory.Exists(appDataFolderPath))
             {
@@ -69,7 +74,17 @@ namespace PrivateLocatedPackageManager
             var outputFilePath = Path.Combine(appDataFolderPath, outputFileName);
             ZipFile.CreateFromDirectory(tempFolderPath, outputFilePath);
 
-            return outputFilePath;
+            //
+            // Make an instance of PackageInfo.
+            //
+            var info = new PackageInfo();
+            info.Name = packageName;
+            info.Files = files
+                .Select(uri => uri.OriginalString)
+                .ToList();
+            info.Identification = Guid.NewGuid();
+            
+            return info;
         }
     }
 }
