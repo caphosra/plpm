@@ -21,7 +21,7 @@ namespace PrivateLocatedPackageManager
         /// <param name="workingDir">The absolute path of the working dir</param>
         /// <param name="files">The relative pathes from "workingDir" of the contents</param>
         /// <returns></returns>
-        public PackageInfo Build(string packageName, Uri workingDir, List<Uri> files)
+        public PackageInfo Build(string packageName, Uri workingDir, List<Uri> files, string description = "Nothing")
         {
             //
             // Generate a temp folder by GUID.
@@ -83,7 +83,23 @@ namespace PrivateLocatedPackageManager
                 .Select(uri => uri.OriginalString)
                 .ToList();
             info.Identification = Guid.NewGuid();
+            info.Description = description;
             
+            return info;
+        }
+
+        /// <summary>
+        /// 
+        /// Build a package from the file and Emit an info of it.
+        /// 
+        /// </summary>
+        public PackageInfo Build(Uri workingDir, PackageProjectFile projfile)
+        {
+            var fileUris = projfile.ContentsFiles
+                .Select(file => new Uri(file, UriKind.Relative))
+                .ToList();
+            var info = Build(projfile.Name, workingDir, fileUris, projfile.Description);
+
             return info;
         }
     }
