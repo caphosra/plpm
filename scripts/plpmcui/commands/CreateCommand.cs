@@ -18,13 +18,15 @@ namespace PrivateLocatedPackageManager.CUI
             {
                 case 0:
                     {
-                        var current_dir = new Uri(Directory.GetCurrentDirectory(), UriKind.Absolute);
+                        var current_dir_path = Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar;
+                        var current_dir = new Uri(current_dir_path, UriKind.Absolute);
                         var proj = PackageProjectFile.LoadFromFile(current_dir.OriginalString);
                         var creater = new PackageCreater();
 
                         LogTracer.Log("[INFO] Started building package ...");
 
-                        creater.Build(current_dir, proj);
+                        var info = creater.Build(current_dir, proj);
+                        info.SaveInfo();
 
                         LogTracer.Log("[INFO] Finished building package");
                     }

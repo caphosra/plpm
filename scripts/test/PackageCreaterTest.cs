@@ -35,7 +35,7 @@ namespace PrivateLocatedPackageManager.Test
         public void CreatePackage()
         {
             var pc = new PackageCreater();
-            var workingDir = new Uri(Directory.GetCurrentDirectory(), UriKind.Absolute);
+            var workingDir = new Uri(Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar, UriKind.Absolute);
             var uri = new Uri("Hello.txt", UriKind.Relative);
             pc.Build("Hello", workingDir, new List<Uri>{ uri });
         }

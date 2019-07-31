@@ -24,11 +24,27 @@ namespace PrivateLocatedPackageManager
 
         public static InstalledPackages Deserialize(string dirPath)
         {
-            var json = File.ReadAllText(GetFileName(dirPath));
+            var filePath = GetFileName(dirPath);
+            
+            if(File.Exists(filePath))
+            {
+                //
+                // Deserialize from a json file.
+                //
+                var json = File.ReadAllText(filePath);
+                var obj = JsonConvert.DeserializeObject<InstalledPackages>(json);
 
-            var obj = JsonConvert.DeserializeObject<InstalledPackages>(json);
-
-            return obj;
+                return obj;
+            }
+            else
+            {
+                //
+                // Create a new one.
+                //
+                var obj = new InstalledPackages();
+                
+                return obj;
+            }
         }
 
         private static string GetFileName(string dirPath) => Path.Combine(dirPath, "plpm.json");

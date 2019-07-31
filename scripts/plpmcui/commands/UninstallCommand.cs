@@ -24,7 +24,8 @@ namespace PrivateLocatedPackageManager.CUI
                 //
                 // Uninstall it.
                 //
-                installer.Uninstall(pkgname, Directory.GetCurrentDirectory());
+                var current_dir = Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar;
+                installer.Uninstall(pkgname, current_dir);
             }
         }
     }

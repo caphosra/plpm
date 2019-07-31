@@ -24,7 +24,8 @@ namespace PrivateLocatedPackageManager.CUI
                 //
                 // Install it.
                 //
-                installer.Install(pkgname, Directory.GetCurrentDirectory());
+                var current_dir = Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar;
+                installer.Install(pkgname, current_dir);
             }
         }
     }
