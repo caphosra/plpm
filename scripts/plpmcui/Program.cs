@@ -9,6 +9,8 @@ namespace PrivateLocatedPackageManager.CUI
 
         static void Main(string[] args)
         {
+            Init();
+
             if(args.Length == 0)
             {
                 Console.WriteLine("Private Located Package Manager (c) 2019 Akihisa Yagi");
@@ -20,6 +22,17 @@ namespace PrivateLocatedPackageManager.CUI
             {
                 ExecuteCommand(args);
             }
+        }
+
+        static void Init()
+        {
+            LogTracer.OnLogWrote += Console.WriteLine;
+            LogTracer.OnErrorLogWrote += (text) => 
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Error.WriteLine(text);
+                Console.ResetColor();
+            };
         }
 
         static void ExecuteCommand(string[] args)
