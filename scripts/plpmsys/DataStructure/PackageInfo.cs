@@ -15,16 +15,16 @@ namespace PrivateLocatedPackageManager
     public class PackageInfo
     {
         [Index(0)]
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
         [Index(1)]
-        public Guid Identification { get; set; }
+        public virtual Guid Identification { get; set; }
 
         [Index(2)]
-        public string Description { get; set; }
+        public virtual string Description { get; set; }
 
         [Index(3)]
-        public IList<string> Files { get; set; }
+        public virtual IList<string> Files { get; set; }
 
         /// <summary>
         /// 

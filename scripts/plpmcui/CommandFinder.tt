@@ -2,7 +2,11 @@
 <#
     string[] classNames = new []{
         "help",
-        "create"
+        "create",
+        "install",
+        "uninstall",
+        "search",
+        "check"
     };
 #>
 

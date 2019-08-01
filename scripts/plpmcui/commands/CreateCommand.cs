@@ -2,62 +2,35 @@ using System;
 using System.IO;
 using System.Linq;
 
-using GlobExpressions;
-
 namespace PrivateLocatedPackageManager.CUI
 {
     class CreateCommand : ICommand
     {
         public string Name => "create";
 
-        public string Usage => "plpm create [name] [glob]";
+        public string Usage => "plpm create";
 
-        public string Description => "Create a package from files.";
+        public string Description => "Create a package from files. This command requires \"plpmproj.json\".";
 
         public void Execute(string[] args)
         {
-            if (args.Length != 2)
+            switch (args.Length)
             {
-                Console.Error.WriteLine("[ERROR] The command, \"plpm create\" requires 2 args.");
-            }
-            else
-            {
-                var name = args[0];
-                var glob = args[1];
+                case 0:
+                    {
+                        var current_dir_path = Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar;
+                        var current_dir = new Uri(current_dir_path, UriKind.Absolute);
+                        var proj = PackageProjectFile.LoadFromFile(current_dir.OriginalString);
+                        var creater = new PackageCreater();
 
-                var currentDir = new Uri(Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar);
-                var matchedFiles = Glob.Files(currentDir.OriginalString, glob)
-                    .Select(file => Path.Combine(currentDir.OriginalString, file));
+                        LogTracer.Log("[INFO] Started building package ...");
 
-                Console.WriteLine($"[INFO] {matchedFiles.Count()} files found.");
+                        var info = creater.Build(current_dir, proj);
+                        info.SaveInfo();
 
-                var props = new PackageProps(name);
-                foreach (var file in matchedFiles)
-                {
-                    //
-                    // Get a relative path
-                    //
-                    var relativeUri = currentDir.MakeRelativeUri(new Uri(file, UriKind.Absolute));
-                    var relativePath = Uri.UnescapeDataString(relativeUri.ToString());
-
-                    Console.WriteLine($"[INFO] Add a file (\"{file}\"). It will be internally called as \"{relativePath}\".");
-
-                    props.Files.Add(new PackageItem(file, relativePath));
-                }
-
-                var creater = new PackageCreater();
-                string outputFilePath;
-                try
-                {
-                    outputFilePath = creater.Build(props);
-                }
-                catch(FileNotFoundException e)
-                {
-                    Console.Error.WriteLine(e.Message);
-                    return;
-                }
-                Console.WriteLine($"[INFO] Generated a package (\"{outputFilePath}\").");
-                Console.WriteLine($"[INFO] Finished successfully.");
+                        LogTracer.Log("[INFO] Finished building package");
+                    }
+                    break;
             }
         }
     }

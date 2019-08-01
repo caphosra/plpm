@@ -35,9 +35,9 @@ namespace PrivateLocatedPackageManager
             foreach(var file in files)
             {
                 var filesAbsoluteUri = new Uri(workingDir, file);
-                if(!File.Exists(filesAbsoluteUri.AbsoluteUri))
+                if(!File.Exists(filesAbsoluteUri.AbsolutePath))
                 {
-                    LogTracer.LogError($"[ERROR] The file which is located at {filesAbsoluteUri.AbsoluteUri} is not found.");
+                    LogTracer.LogError($"[ERROR] The file which is located at {filesAbsoluteUri.AbsolutePath} is not found.");
                     return null;
                 }
                 else
@@ -51,7 +51,7 @@ namespace PrivateLocatedPackageManager
                     {
                         Directory.CreateDirectory(tempFilesFolderPath);
                     }
-                    File.Copy(filesAbsoluteUri.AbsoluteUri, tempFilePath, overwrite: true);
+                    File.Copy(filesAbsoluteUri.AbsolutePath, tempFilePath, overwrite: true);
                 }
             }
 
