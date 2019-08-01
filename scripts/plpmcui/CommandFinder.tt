@@ -5,7 +5,8 @@
         "create",
         "install",
         "uninstall",
-        "search"
+        "search",
+        "check"
     };
 #>
 
