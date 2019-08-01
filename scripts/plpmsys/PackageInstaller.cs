@@ -92,7 +92,7 @@ namespace PrivateLocatedPackageManager
 
             foreach(var file in lists)
             {
-                var filePath = file.AbsoluteUri;
+                var filePath = file.AbsolutePath;
                 if(File.Exists(filePath))
                 {
                     File.Delete(filePath);
