@@ -4,7 +4,8 @@
         "help",
         "create",
         "install",
-        "uninstall"
+        "uninstall",
+        "search"
     };
 #>
 
