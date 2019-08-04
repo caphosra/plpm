@@ -2,6 +2,7 @@ trigger:
   branches:
     include:
     - master
+    - refs/tags/v*
 
 variables:
   dotnetCoreVersion: '2.2.105'

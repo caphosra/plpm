@@ -5,6 +5,17 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <RuntimeIdentifiers>win10-x64;osx.10.11-x64;ubuntu.16.04-x64</RuntimeIdentifiers>
+
+    
+    <Product>PrivateLocatedPackageManager</Product>
+    <Title>plpm</Title>
+    <Version>1.0.0</Version>
+    <Copyright>Copyright (c) 2019 Akihisa Yagi</Copyright>
+    <Authors>Akihisa Yagi</Authors>
+    <Company>capra314cabra</Company>
+    <Description>This is a tool with which you can create and install some packages locally.</Description>
+
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <ItemGroup>
