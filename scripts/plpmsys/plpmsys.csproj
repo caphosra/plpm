@@ -1,8 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-  <OutputType>Library</OutputType>
+    <OutputType>Library</OutputType>
     <TargetFramework>netstandard2.0</TargetFramework>
+
+    <Product>PrivateLocatedPackageManagerSystemLibrary</Product>
+    <Title>plpmsys</Title>
+    <Version>1.0.0</Version>
+    <Copyright>Copyright (c) 2019 Akihisa Yagi</Copyright>
+    <Authors>Akihisa Yagi</Authors>
+    <Company>capra314cabra</Company>
+    <Description>This is a library which is referenced by PLPM.</Description>
+
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <ItemGroup>
