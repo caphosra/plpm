@@ -9,7 +9,7 @@ This is a tool with which you can create and install some packages locally.
 
 ### Use GitHub release
 
-1. Jump to (Release page)[https://github.com/capra314cabra/plpm/releases]
+1. Jump to [Release page](https://github.com/capra314cabra/plpm/releases)
 2. Download package
 3. Extract it wherever you wanna install
 4. Add the path of the directory where you installed it to PATH values(optional)
