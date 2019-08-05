@@ -5,6 +5,12 @@
 
 This is a tool with which you can create and install some packages locally.
 
+## Description
+
+Do you have any experiences that you wanna test your library or install something temporary? On that time, you may have to put some libraries to the special directory such as "System32", "usr/lib". And you face to the problem - *"Are they detachable?"*  
+With this tool, you can create "package"(contains libraries) and share it only in your computer. The "package" shared can be installed whenever you want and it is easy to uninstall.  
+You wanna know more information? Watch [Usage](/).
+
 ## Installation
 
 ### Use GitHub release
@@ -13,7 +19,7 @@ This is a tool with which you can create and install some packages locally.
 2. Download package
 3. Extract it wherever you wanna install
 4. Add the path of the directory where you installed it to PATH values(optional)
-5. You can use plpm. Hooray!
+5. Finally you can use plpm. Hooray!
 
 ### Build from source code
 
