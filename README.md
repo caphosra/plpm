@@ -45,14 +45,14 @@ Choose one from followings.
 
 When you wanna create a new package, you need to create a "PLPM Project File" first. It is easy to create.  
 The PLPM project file is a kind of JSON and it is formatted as following.
-```Json
+```JSON
 {
-    "Name": "Package Name", // The name of package
-    "Description": "Description", // Description
+    "Name": "Package Name",
+    "Description": "Description",
     "ContentsFiles": [
-        "1.txt", // Add a file to the package
+        "1.txt",
         "subfolder/2.txt",
-        "image.png" // Of cource, binary file
+        "image.png"
     ]
 }
 ```
