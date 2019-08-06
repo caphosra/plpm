@@ -43,6 +43,8 @@ Choose one from followings.
 
 ### Create a package
 
+![plpm_create](https://media.githubusercontent.com/media/capra314cabra/plpm/master/img/plpm_create.gif)
+
 When you wanna create a new package, you need to create a "PLPM Project File" first. It is easy to create.  
 The PLPM project file is a kind of JSON and it is formatted as following.
 ```JSON
@@ -73,6 +75,8 @@ plpm search
 ```
 
 ### Install the package
+
+![plpm_install](https://media.githubusercontent.com/media/capra314cabra/plpm/master/img/plpm_install.gif)
 
 Installing a package is easy.
 Move to where you wanna install package and type following command:
