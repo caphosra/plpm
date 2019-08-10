@@ -17,29 +17,36 @@ namespace PrivateLocatedPackageManager
             else
             {
                 //
-                // Get where the files will be installed to.
+                // Get where the package are on.
                 //
                 var packagePath = Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData, Environment.SpecialFolderOption.DoNotVerify),
                     "PLPM",
                     $"{packageName}.plpmpkg"
                 );
 
                 LogTracer.Log($"[INFO] Install started (Source: {packagePath})");
 
-                //
-                // Install files.
-                //
-                DoInstall(packagePath, installTo);
+                if(File.Exists(packagePath))
+                {
+                    //
+                    // Install files.
+                    //
+                    DoInstall(packagePath, installTo);
 
-                LogTracer.Log($"[INFO] Install Finished");
+                    LogTracer.Log($"[INFO] Install Finished");
 
-                //
-                // Save changes.
-                //
-                var info = PackageInfo.LoadInfo(packageName);
-                lists.Packages.Add(packageName, info.Identification);
-                lists.Serialize(installTo);
+                    //
+                    // Save changes.
+                    //
+                    var info = PackageInfo.LoadInfo(packageName);
+                    lists.Packages.Add(packageName, info.Identification);
+                    lists.Serialize(installTo);
+                }
+                else
+                {
+                    LogTracer.LogError($"[ERROR] a package ({packagePath}) is not found.");
+                }
             }
         }
 

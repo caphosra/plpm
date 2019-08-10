@@ -16,15 +16,27 @@ namespace PrivateLocatedPackageManager
         public List<string> FindAll()
         {
             var appDataPath = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData, Environment.SpecialFolderOption.DoNotVerify),
                 "PLPM"   
             );
 
-            var files = Directory.GetFiles(appDataPath, "*.plpmpkg", SearchOption.AllDirectories)
-                .Select(file => Path.GetFileNameWithoutExtension(file))
-                .ToList();
-
-            return files;
+            if(Directory.Exists(appDataPath))
+            {
+                //
+                // Get the list of plpmpkg files.
+                //
+                var files = Directory.GetFiles(appDataPath, "*.plpmpkg", SearchOption.AllDirectories)
+                    .Select(file => Path.GetFileNameWithoutExtension(file))
+                    .ToList();
+                return files;
+            }
+            else
+            {
+                //
+                // It runs when we doesn't found some packages.
+                //
+                return new List<string>();
+            }
         }
     }
 }
