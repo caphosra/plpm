@@ -16,6 +16,8 @@ jobs:
         vmImage: 'ubuntu-16.04'
       Windows:
         vmImage: 'windows-2019'
+      Mac:
+        vmImage: 'macOS-10.14'
   steps:
   - task: DotNetCoreInstaller@0
     displayName: 'Install .Net Core SDK'
@@ -49,6 +51,10 @@ jobs:
         vmImage: 'windows-2019'
         runningOSName: 'Windows'
         runtimeID: 'win-x64'
+      Mac:
+        vmImage: 'macOS-10.14'
+        runningOSName: 'Mac'
+        runtimeID: 'osx-x64'
   steps:
   - task: DotNetCoreInstaller@0
     displayName: 'Install .Net Core SDK'
