@@ -6,7 +6,8 @@
         "install",
         "uninstall",
         "search",
-        "check"
+        "check",
+        "config"
     };
 #>
 
