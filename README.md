@@ -43,18 +43,17 @@ Choose one from followings.
 
 ### Create a package
 
-![plpm_create](https://media.githubusercontent.com/media/capra314cabra/plpm/master/img/plpm_create.gif)
+![plpm_create](https://media.githubusercontent.com/media/capra314cabra/plpm/develop/update_img/img/plpm_create.png)
 
 When you wanna create a new package, you need to create a "PLPM Project File" first. It is easy to create.  
 The PLPM project file is a kind of JSON and it is formatted as following.
 ```JSON
 {
-    "Name": "Package Name",
-    "Description": "Description",
+    "Name": "TestPackage",
+    "Description": "Description...",
     "ContentsFiles": [
-        "1.txt",
-        "subfolder/2.txt",
-        "image.png"
+        "helloworld.txt",
+        "subfolder/capra.dll"
     ]
 }
 ```
@@ -76,16 +75,19 @@ plpm search
 
 ### Install the package
 
-![plpm_install](https://media.githubusercontent.com/media/capra314cabra/plpm/master/img/plpm_install.gif)
+![plpm_install](https://media.githubusercontent.com/media/capra314cabra/plpm/develop/update_img/img/plpm_install.png)
 
 Installing a package is easy.
 Move to where you wanna install package and type following command:
 ```
 plpm install [package name]
 ```
-Only this.
+Only this.  
+After running this command, you will see "plpm.json". It contains the list of packages installed there.
 
 ### Uninstall the package
+
+![plpm_uninstall](https://media.githubusercontent.com/media/capra314cabra/plpm/develop/update_img/img/plpm_uninstall.png)
 
 Uninstalling a package is easy too.
 Move to where you wanna install package and type following command:
